@@ -1,7 +1,8 @@
 <h1>Audio Player</h1>
-<div #audio id="audio">
-  <div class="button" (click)="start()">Begin</div>
-</div>
-<div id="player">
-	<canvas #canvas width="600" height="300"></canvas>
+<button (click)="start()" [hidden]="invited">Allow music playback?</button>
+<div class="audio-player-wrapper">
+  <div #audio id="audio"></div>
+  <div id="player">
+    <canvas #canvas width="600" height="300"></canvas>
+  </div>
 </div>

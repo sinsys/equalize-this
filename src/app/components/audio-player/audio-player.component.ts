@@ -16,6 +16,7 @@ export class AudioPlayerComponent implements AfterViewInit {
   @ViewChild('audio', { static: false })
     player: ElementRef<HTMLDivElement>;
 
+  invited: boolean = false;
   audio: HTMLAudioElement;
 
   // Audio
@@ -37,6 +38,11 @@ export class AudioPlayerComponent implements AfterViewInit {
   ) { }
 
   start(): void {
+    this.invited = true;
+    this.context.resume();
+  }
+
+  ngAfterViewInit(): void {
     /* SETUP */
     // Audio config
     this.audio = new Audio();
@@ -65,10 +71,6 @@ export class AudioPlayerComponent implements AfterViewInit {
       () => this.FrameLooper(),
       false
     )
-  }
-
-  ngAfterViewInit(): void {
-
   }
 
   /**
