@@ -14,4 +14,14 @@
       height: 300px;
     }
   }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 50px;
+    border-radius: 12px;
+    background: #CCC;
+  }
 }
