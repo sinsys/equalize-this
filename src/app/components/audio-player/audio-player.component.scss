@@ -6,7 +6,12 @@
   div#player {
     background: #333;
     display: block;
-    width: 300px;
-    height: 200px;
+    width: 600px;
+    height: 300px;
+
+    canvas {
+      width: 600px;
+      height: 300px;
+    }
   }
 }
