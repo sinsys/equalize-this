@@ -1,14 +1,6 @@
 import { Component, Renderer2, ElementRef, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { WINDOW, WindowProvider } from 'src/app/services/window.service'
 
-export class Square {
-  constructor(private ctx: CanvasRenderingContext2D) {}
-
-  draw(x: number, y: number, z: number) {
-    this.ctx.fillRect(z * x, z * y, z, z);
-  }
-}
-
 @Component({
   selector: 'app-audio-player',
   templateUrl: './audio-player.component.html',
@@ -17,18 +9,22 @@ export class Square {
 })
 
 export class AudioPlayerComponent implements AfterViewInit {
+  // Elements
   @ViewChild('canvas', { static: true }) 
-  canvas: ElementRef<HTMLCanvasElement>;
+    canvas: ElementRef<HTMLCanvasElement>;
 
   @ViewChild('audio', { static: false })
-  player: ElementRef<HTMLDivElement>;
+    player: ElementRef<HTMLDivElement>;
 
   audio: HTMLAudioElement;
+
+  // Audio
   context: AudioContext;
   analyser: AnalyserNode;
   source: MediaElementAudioSourceNode;
 
-  private ctx: CanvasRenderingContext2D;
+  // Canvas
+  ctx: CanvasRenderingContext2D;
 	fbc_array;
 	bar_count;
 	bar_pos;
@@ -40,14 +36,14 @@ export class AudioPlayerComponent implements AfterViewInit {
     private renderer: Renderer2
   ) { }
 
-  ngAfterViewInit(): void {
+  start(): void {
     /* SETUP */
     // Audio config
     this.audio = new Audio();
     this.audio.src = "assets/test.mp3";
     this.audio.controls = true;
     this.audio.loop = false;
-    this.audio.autoplay = true;
+    this.audio.autoplay = false;
 
     this.context = new AudioContext();
     this.ctx = this.canvas.nativeElement.getContext('2d');
@@ -71,6 +67,13 @@ export class AudioPlayerComponent implements AfterViewInit {
     )
   }
 
+  ngAfterViewInit(): void {
+
+  }
+
+  /**
+   * Queries active frequencies of audio stream and outputs to canvas
+   */
   FrameLooper(): void {
 	  this.fbc_array = new Uint8Array(this.analyser.frequencyBinCount);
 	  this.bar_count = this.window.innerWidth / 4;
